@@ -55,11 +55,151 @@ $(function () {
             {
                 location: "Chuquihuta Ayllu Jucumani",
                 projects: 0
+            },
+            {
+                location: "Santa Rosa del Sara",
+                projects: 10
+            },
+            {
+                location: "Lagunillas",
+                projects: 1
+            },
+            {
+                location: "Cabezas",
+                projects: 1
+            },
+            {
+                location: "Cuevo",
+                projects: 1
+            },
+            {
+                location: "Gutiérrez",
+                projects: 1
+            },
+            {
+                location: "Camiri",
+                projects: 1
+            },
+            {
+                location: "Boyuibe",
+                projects: 1
+            },
+            {
+                location: "Vallegrande",
+                projects: 1
+            },
+            {
+                location: "Trigal",
+                projects: 1
+            },
+            {
+                location: "Moro Moro",
+                projects: 1
+            },
+            {
+                location: "Pucara",
+                projects: 1
+            },
+            {
+                location: "Mairana",
+                projects: 1
+            },
+            {
+                location: "Comarapa",
+                projects: 1
+            },
+            {
+                location: "Saipina",
+                projects: 1
+            },
+            {
+                location: "San Ignacio",
+                projects: 1
+            },
+            {
+                location: "Loreto",
+                projects: 1
+            },
+            {
+                location: "San Andrés",
+                projects: 1
+            },
+            {
+                location: "San Joaquín",
+                projects: 1
+            },
+            {
+                location: "San Ramón",
+                projects: 1
+            },
+            {
+                location: "Puerto Síles",
+                projects: 1
+            },
+            {
+                location: "Magdalena",
+                projects: 1
+            },
+            {
+                location: "Baures",
+                projects: 1
+            },
+            {
+                location: "Huacaraje",
+                projects: 1
+            },
+            {
+                location: "Exaltación",
+                projects: 1
+            },
+            {
+                location: "Cobija",
+                projects: 1
+            },
+            {
+                location: "Bolpebra",
+                projects: 1
+            },
+            {
+                location: "Bella Flor",
+                projects: 1
+            },
+            {
+                location: "Puerto Rico",
+                projects: 1
+            },
+            {
+                location: "San Pedro",
+                projects: 1
+            },
+            {
+                location: "Puerto Gonzalo Moreno",
+                projects: 1
+            },
+            {
+                location: "San Lorenzo",
+                projects: 1
+            },
+            {
+                location: "Sena",
+                projects: 1
+            },
+            {
+                location: "Santa Rosa del Abuna",
+                projects: 1
+            },
+            {
+                location: "Villa Nueva",
+                projects: 1
+            },
+            {
+                location: "Santos Mercado",
+                projects: 1
             }
 
         ];
         arrayData = [];
-        
+
         arrayData.push([
             'localidad',
             "Nro Proyectos"
