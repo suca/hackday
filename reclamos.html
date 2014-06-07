@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>ZeroFour by HTML5 UP</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.dropotron.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/skel-panels.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkF-PzO6AXjlWLYEqaxfDW9VawnU8QVMs"></script>
+    <script type="text/javascript">
+
+      function setPosition(pos, zoom){
+        var obj = {
+          lo: pos.k,
+          la: pos.A,
+          zo: zoom
+        };
+        document.getElementById('frmPosition').value = JSON.stringify(obj);
+      }
+
+      function initialize(){
+
+        var mapOptions = {
+          center: new google.maps.LatLng(-16.045813, -64.995117),
+          zoom: 5
+        };
+        
+        var map = new google.maps.Map(document.getElementById("mapReclamo"), mapOptions);
+        
+        var marker = new google.maps.Marker({
+          position: map.getCenter(),
+          map: map,
+          draggable: true
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function(){
+          setPosition(marker.getPosition(), map.getZoom());
+        });
+
+        google.maps.event.addListener(map, 'zoom_changed', function(){
+          setPosition(marker.getPosition(), map.getZoom());
+        });
+
+        setPosition(map.getCenter(), map.getZoom());
+      }
+
+
+      $(document).ready(function(){
+        $("#frmNewRequest").click(function(){
+          $("#frmForm").show();
+          initialize();
+          return false;
+        });
+        
+        $("#frmSave").click(function(){
+          $.ajax({
+            url: 'controller.php',
+            type: 'post',
+            data: {
+              do: 'guardarReclamo',
+              nombre: $("#frmNombre").val(),
+              correo: $("#frmEmail").val(),
+              tema: $("#frmTema").val(),
+              descripcion: $("#frmDescripcion").val(),
+              lugar: $("#frmPosition").val()
+            },
+            success: function(data){
+              $("#frmForm").hide();
+            }
+          })
+          return false;
+        });
+
+        function structData(){
+          $html = '
+              <section class="container box-feature2">
+                <div class="row">
+                  <div class="6u">
+                    <section>
+                      <header class="major">
+                        <h2>' + $title + '</h2>
+                        <div class="byline"></div>
+                      </header>
+                      <p>' +  + '</p>
+                      <footer>
+                        <a href="#" class="button medium"><span class="fa fa-plus-circle"></span></a>
+                        <a href="#" class="button alt medium"><span class="fa fa-minus-circle"></span></a>
+                      </footer>
+                    </section>
+                  </div>
+                </div>
+              </section>';
+        }
+
+        function loadData(){
+          $("#mainContent").html("");
+
+        }
+
+      });
+    </script>
+    <noscript>
+      <link rel="stylesheet" href="css/skel-noscript.css" />
+      <link rel="stylesheet" href="css/style.css" />
+      <link rel="stylesheet" href="css/style-desktop.css" />
+    </noscript>
+    <!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+    <!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+    <style type="text/css">
+      #footer-wrapper {
+        padding: 4.5em 0 0 0;
+      }
+      #mapReclamo{
+        height: 500px;
+        border: 2px solid;
+      }
+      .center{
+        text-align: center;
+      }
+      .left{
+        text-align: left;
+      }
+      .right{
+        text-align: right;
+      }
+      .w_auto{
+        width: 100%;
+      }
+      input, textarea{
+        width: 100%;
+      }
+      .padding-bottom{
+        padding-bottom: 20px;
+      }
+      .padding-top{
+        padding-top: 20px;
+      }
+      .tiny{
+        padding: .5em 1em !important;
+      }
+      #header-wrapper{
+        height: 150px !important;
+      }
+    </style>
+  </head>
+  <body class="homepage">
+
+    <!-- Header Wrapper -->
+      <div id="header-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="12u">
+            
+              <!-- Header -->
+                <header id="header">
+                  <div class="inner">
+                  
+                    <!-- Logo -->
+                      <h1><a href="#" id="logo">Seguimiento</a></h1>
+                    
+                    <!-- Nav -->
+                      <nav id="nav">
+                        <ul>
+                          <li><a href="index.html">Principal</a></li>
+                          <li><a href="index.html#noticias">Noticias</a></li>
+                          <li><a href="timeline.html">L&iacute;nea de Tiempo</a></li>
+                          <li class="current_page_item"><a href="reclamos.html">Reclamos</a></li>
+                          <li><a href="estadisticas.html">Estad&iacute;sticas</a></li>
+                        </ul>
+                      </nav>
+                  
+                  </div>
+                </header>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <!-- Main Wrapper -->
+      <div id="main-wrapper">
+        <div class="main-wrapper-style1">
+          <div class="inner">
+        
+            <!-- Feature 1 -->
+              <section class="container box-feature1">
+                <div class="row">
+                  <div class="12u">
+                    
+                    <header class="major">
+                      <h2>Quejas, reclamos, protestas...</h2>
+                      <span class="byline">
+                        Haga seguimiento de su reclamo en esta secci&oacute;n,
+                        haga click en el bot&oacute;n &quot;Nuevo Reclamo&quot; si desea
+                        publicar un nuevo reclamo.
+                      </span>
+                      <div class="right padding-bottom">
+                        <a href="#" class="button" id="frmNewRequest">Nuevo Reclamo</a>
+                      </div>
+                    </header>
+
+                    <header class="major" id="frmForm" style="display:none">
+                      <div class="container">
+                        <div class="row">
+                          <div class="3u">&nbsp;</div>
+                          <div class="6u">
+                            <form>
+                              <div class="row">
+                                <div class="4u right"><label for="frmNombre">Nombre:</label></div>
+                                <div class="8u"><input name="frmNombre" id="frmNombre" /></div>
+                                <div class="4u right"><label for="frmEmail">Correo Electr&oacute;nico (no ser&aacute; publicado:</label></div>
+                                <div class="8u"><input name="frmEmail" id="frmEmail" /></div>
+                                <div class="4u right"><label for="frmTema">Tema:</label></div>
+                                <div class="8u"><input name="frmTema" id="frmTema" /></div>
+                                <div class="8u"><input type="hidden" name="frmPosition" id="frmPosition" /></div>
+                                <div class="4u right"><label for="frmDescripcion">Descripci&oacute;n:</label></div>
+                                <div class="8u"><textarea name="frmDescripcion" id="frmDescripcion" rows="5"></textarea></div>
+                                <div class="12u left"><label for="mapReclamo">Ubique el lugar:</label></div>
+                                <div class="12u">
+                                  <div id="mapReclamo" class="w_auto"></div>
+                                </div>
+                                <div class="12u right padding-bottom padding-top">
+                                  <a href="#" class="button tiny" id="frmSave">Guardar reclamo</a>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </header>
+
+                  </div>
+                </div>
+              </section>
+          </div>
+        </div>
+
+        <div class="main-wrapper-style2">
+          <div class="inner" id="mainContent"></div>
+        </div>
+      </div>
+
+    <footer id="footer" class="container">
+      <div class="row">
+        <div class="12u">
+          Seguimiento de Proyectos
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

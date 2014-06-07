@@ -4,10 +4,14 @@
     private $link;
     
     public function __construct(){
-      $link = 
+      $this->dbName = 'hackDay';
+      $this->dbHost = 'localhost';
+      $this->dbUser = 'hackDay';
+      $this->dbPassword = 'sample';
+      $this->createLink();
     }
 
-    private createLink(){
+    private function createLink(){
       $dsn = 'mysql:dbname=' . $this->dbName . ';host=' . $this->dbHost;
       try{
         $this->link = new PDO($dsn, $this->dbUser, $this->dbPassword);
