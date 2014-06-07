@@ -1149,3 +1149,11 @@
 .container-referencias li{
 	color: #04071B;
 }
+
+#noticiasLayer {
+  background: url('../images/working.png') no-repeat;
+	height: 500px;
+	width: 100%;
+	background-size: 700px;
+	margin-left: 20%;
+}

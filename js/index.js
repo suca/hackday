@@ -9,21 +9,54 @@ $(function () {
     function drawMap() {
         items = [
             {
-                location: "murillo",
+                location: "Chua Cocani",
                 projects: 12
             },
             {
-                location: "yungas",
+                location: "Huatajata",
                 projects: 233
             },
             {
-                location: "otros",
+                location: "Huarina ",
                 projects: 111
             },
             {
-                location: "Copacabana",
+                location: "Ckochas",
                 projects: 1234
+            },
+            {
+                location: "Shinahota",
+                projects: 4
+            },
+            {
+                location: "Santiago de Huata",
+                projects: 34
+            },
+            {
+                location: "Villa Charcas",
+                projects: 2
+            },
+            {
+                location: "Humanata",
+                projects: 43
+            },
+            {
+                location: "Escoma",
+                projects: 3
+            },
+            {
+                location: "Alto Beni",
+                projects: 45
+            },
+            {
+                location: "Cocapata",
+                projects: 45
+            },
+            {
+                location: "Chuquihuta Ayllu Jucumani",
+                projects: 0
             }
+
         ];
         arrayData = [];
         

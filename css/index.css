@@ -39,3 +39,9 @@ small {
     -o-user-select: none;
     user-select: none;
 }
+
+#noticiasLayer {
+  background: url('images/working.png') no-repeat;
+  height: 300px;
+  width: 300px;
+}
