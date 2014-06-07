@@ -1,76 +1,54 @@
-/*
-$("#mainId").on( "vclick", function() {
-  $( ".ui-content" ).append( "<span style='color:#108040;'> vclick fired... </span>" );
+$(function () {
+
 });
-$("#timeLineId").on( "vclick", function() {
-  $( ".ui-content" ).append( "<span style='color:#108040;'> vclick fired... </span>" );
-});
-$("#reviewId").on( "vclick", function() {
-  $( ".ui-content" ).append( "<span style='color:#108040;'> vclick fired... </span>" );
-});
-$("#registerId").on( "vclick", function() {
-  $( ".ui-content" ).append( "<span style='color:#108040;'> vclick fired... </span>" );
-});
-$("#contactId").on( "vclick", function() {
-    $( ".ui-content" ).append( "<span style='color:#108040;'> vclick fired... </span>" );
-});
-*/
+   
 
+   google.load('visualization', '1', {'packages': ['geomap']});
+   google.setOnLoadCallback(drawMap);
 
+    function drawMap() {
+        items = [
+            {
+                location: "murillo",
+                projects: 11
+            },
+            {
+                location: "yungas",
+                projects: 233
+            },
+            {
+                location: "otros",
+                projects: 111
+            }
+        ];
+        arrayData = [];
+        
+        arrayData.push([
+            'localidad',
+            "Nro Proyectos"
+        ]);
+        for (var i = 0; i < items.length; i++) {
+            
+            arrayData.push([
+                items[i].location,
+                items[i].projects
+            ]);
+        }
 
-$( document ).on( "pageinit", "[data-role='page'].demo-page", function() {
-    var page = "#" + $( this ).attr( "id" ),
-        // Get the filename of the next page that we stored in the data-next attribute
-        next = $( this ).jqmData( "next" ),
-        // Get the filename of the previous page that we stored in the data-prev attribute
-        prev = $( this ).jqmData( "prev" );
-    // Check if we did set the data-next attribute
-    if ( next ) {
-        // Prefetch the next page
-        $.mobile.loadPage( next + ".html" );
-        // Navigate to next page on swipe left
-        $( document ).on( "swipeleft", page, function() {
-            $.mobile.changePage( next + ".html", { transition: "slide" });
-        });
-        // Navigate to next page when the "next" button is clicked
-        $( ".control .next", page ).on( "click", function() {
-            $.mobile.changePage( next + ".html", { transition: "slide" } );
-        });
-    }
-    // Disable the "next" button if there is no next page
-    else {
-        $( ".control .next", page ).addClass( "ui-disabled" );
-    }
-    // The same for the previous page (we set data-dom-cache="true" so there is no need to prefetch)
-    if ( prev ) {
-        $( document ).on( "swiperight", page, function() {
-            $.mobile.changePage( prev + ".html", { transition: "slide", reverse: true } );
-        });
-        $( ".control .prev", page ).on( "click", function() {
-            $.mobile.changePage( prev + ".html", { transition: "slide", reverse: true } );
-        });
-    }
-    else {
-        $( ".control .prev", page ).addClass( "ui-disabled" );
-    }
-});
+        var data = google.visualization.arrayToDataTable(arrayData);
 
+        var options = {
+            width: document.body.clientHeight, 
+            height: 600,
+            region: 'BO',
+            colors: [0x44d341, 0x0fff600, 0xe54747],
+            dataMode: 'markers'
+        };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        var container = document.getElementById('map_canvas');
+        var geomap = new google.visualization.GeoMap(container);
+        geomap.draw(data, options);
+    };    
 
 /******* PhoneGap *******/
 var phoneGap = {
