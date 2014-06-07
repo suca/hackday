@@ -218,7 +218,7 @@ $(function () {
             width: document.body.clientHeight, 
             height: 600,
             region: 'BO',
-            colors: [0x44d341, 0x0fff600, 0xe54747],
+            colors: [0xe54747, 0x0fff600, 0x44d341 ],
             dataMode: 'markers'
         };
 
