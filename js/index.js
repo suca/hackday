@@ -10,7 +10,7 @@ $(function () {
         items = [
             {
                 location: "murillo",
-                projects: 11
+                projects: 12
             },
             {
                 location: "yungas",
@@ -19,6 +19,10 @@ $(function () {
             {
                 location: "otros",
                 projects: 111
+            },
+            {
+                location: "Copacabana",
+                projects: 1234
             }
         ];
         arrayData = [];
