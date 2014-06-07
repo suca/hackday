@@ -70,6 +70,11 @@
 
       $(document).ready(function(){
         $("#frmNewRequest").click(function(){
+          $("#frmNombre").val("");
+          $("#frmEmail").val("");
+          $("#frmTema").val("");
+          $("#frmDescripcion").val("");
+          $("#frmPosition").val("");
           $("#frmForm").show();
           initialize('mapReclamo');
           return false;
@@ -262,10 +267,10 @@
                       <nav id="nav">
                         <ul>
                           <li><a href="index.html">Principal</a></li>
-                          <li><a href="index.html#noticias">Noticias</a></li>
+                          <li><a href="noticias.html">Noticias</a></li>
                           <li><a href="timeline.html">L&iacute;nea de Tiempo</a></li>
-                          <li class="current_page_item"><a href="reclamos.html">Reclamos</a></li>
-                          <li><a href="estadisticas.html">Estad&iacute;sticas</a></li>
+                          <li class="current_page_item"><a href="reclamos.html">¡Proteste Ya!</a></li>
+                          <li><a href="referencias.html">Referencias</a></li>
                         </ul>
                       </nav>
                   
@@ -307,14 +312,14 @@
                             <form>
                               <div class="row">
                                 <div class="4u right"><label for="frmNombre">Nombre:</label></div>
-                                <div class="8u"><input name="frmNombre" id="frmNombre" /></div>
+                                <div class="8u"><input name="frmNombre" id="frmNombre" placeholder="Inserte su nombre (no será mostrado)" /></div>
                                 <div class="4u right"><label for="frmEmail">Correo Electr&oacute;nico:</label></div>
-                                <div class="8u"><input name="frmEmail" id="frmEmail" /></div>
+                                <div class="8u"><input name="frmEmail" id="frmEmail" placeholder="Inserte su correo electrónico (no será mostrado)" /></div>
                                 <div class="4u right"><label for="frmTema">Tema:</label></div>
-                                <div class="8u"><input name="frmTema" id="frmTema" /></div>
+                                <div class="8u"><input name="frmTema" id="frmTema" placeholder="Inserte un asunto" /></div>
                                 <div class="8u"><input type="hidden" name="frmPosition" id="frmPosition" /></div>
                                 <div class="4u right"><label for="frmDescripcion">Descripci&oacute;n:</label></div>
-                                <div class="8u"><textarea name="frmDescripcion" id="frmDescripcion" rows="5"></textarea></div>
+                                <div class="8u"><textarea name="frmDescripcion" id="frmDescripcion" placeholder="Inserte una descripción" rows="5"></textarea></div>
                                 <div class="12u left"><label for="mapReclamo">Ubique el lugar:</label></div>
                                 <div class="12u">
                                   <div id="mapReclamo" class="w_auto"></div>
