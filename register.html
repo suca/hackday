@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <title>Money Path</title>
+        <script type="text/javascript" src="cordova.js"></script>
+
+        <link rel="stylesheet" href="libs/jquery.mobile-1.4.2.min.css">
+        <link rel="stylesheet" href="libs/jqm-demos.css">
+        <script src="libs/jquery-1.11.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script src="libs/jquery.mobile-1.4.2.min.js"></script>
+
+        
+        <link rel="stylesheet" type="text/css" href="css/index.css" /> 
+        
+        
+    </head>
+    <body>
+        <div data-role="page" id="register" class="demo-page" data-dom-cache="true" data-theme="a" data-prev="review" data-next="contact">
+            <div data-role="header" data-position="inline">
+                <h1>Hackaton: Money Path</h1>
+                <div data-role="navbar">
+                    <ul class="ui-body-b ui-body">
+                        <li><a href="#" data-icon="home">Principal</a></li>
+                        <li><a href="#" data-icon="star">TimeLine</a></li>
+                        <li><a href="#" data-icon="check">Review</a></li>
+                        <li><a href="#" data-icon="user" class="ui-btn-active">Register</a></li>
+                        <li><a href="#" data-icon="mail">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div data-role="content" data-theme="a">
+                <a href="#" data-role="button" data-icon="star">New Fondo Publico</a>
+                <h2>Overview</h2>
+                <p>Comments by Suca</p>
+            </div>
+
+            <div data-role="content">
+                <div id="trivia-newyork" class="trivia ui-content" data-role="popup" data-position-to="window" data-tolerance="50,30,30,30" data-theme="d">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                    <p>Check In like to twitter <small>By Us</small></p>
+                </div>
+            </div>
+
+            <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
+                <div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
+                    <a href="#" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
+                    <a href="#" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
+                </div>
+                <a href="#trivia-newyork" data-rel="popup" class="trivia-btn ui-btn-right" data-role="button" data-icon="location" data-iconpos="left" data-theme="d" data-mini="true">Check-In</a>
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+    </body>
+</html>
