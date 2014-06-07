@@ -23,37 +23,55 @@
         document.getElementById('frmPosition').value = JSON.stringify(obj);
       }
 
-      function initialize(){
+      function initialize(idMap, location){
+
+        var lo, la, zo, dr;
+
+        if(location == undefined){
+          lo = -16.045813;
+          la = -64.995117;
+          zo = 5;
+          dr = true;
+        }else{
+          location = JSON.parse(location);
+          lo = location.lo;
+          la = location.la;
+          zo = location.zo;
+          dr = false;
+        }
 
         var mapOptions = {
-          center: new google.maps.LatLng(-16.045813, -64.995117),
-          zoom: 5
+          center: new google.maps.LatLng(lo, la),
+          zoom: zo
         };
         
-        var map = new google.maps.Map(document.getElementById("mapReclamo"), mapOptions);
+        var map = new google.maps.Map(document.getElementById(idMap), mapOptions);
         
         var marker = new google.maps.Marker({
           position: map.getCenter(),
           map: map,
-          draggable: true
+          draggable: dr
         });
 
-        google.maps.event.addListener(marker, 'dragend', function(){
-          setPosition(marker.getPosition(), map.getZoom());
-        });
+        if(dr){
+          google.maps.event.addListener(marker, 'dragend', function(){
+            setPosition(marker.getPosition(), map.getZoom());
+          });
 
-        google.maps.event.addListener(map, 'zoom_changed', function(){
-          setPosition(marker.getPosition(), map.getZoom());
-        });
+          google.maps.event.addListener(map, 'zoom_changed', function(){
+            setPosition(marker.getPosition(), map.getZoom());
+          });
 
-        setPosition(map.getCenter(), map.getZoom());
+          setPosition(map.getCenter(), map.getZoom());
+        }
+
       }
 
 
       $(document).ready(function(){
         $("#frmNewRequest").click(function(){
           $("#frmForm").show();
-          initialize();
+          initialize('mapReclamo');
           return false;
         });
         
@@ -71,36 +89,112 @@
             },
             success: function(data){
               $("#frmForm").hide();
+
+              loadData();
             }
           })
           return false;
         });
 
-        function structData(){
-          $html = '
-              <section class="container box-feature2">
-                <div class="row">
-                  <div class="6u">
-                    <section>
-                      <header class="major">
-                        <h2>' + $title + '</h2>
-                        <div class="byline"></div>
-                      </header>
-                      <p>' +  + '</p>
-                      <footer>
-                        <a href="#" class="button medium"><span class="fa fa-plus-circle"></span></a>
-                        <a href="#" class="button alt medium"><span class="fa fa-minus-circle"></span></a>
-                      </footer>
-                    </section>
-                  </div>
-                </div>
-              </section>';
+        function structData(title, content, i){
+          html = '    <div class="6u" style="padding-bottom: 35px">' +
+                 '      <section style="padding:10px; border:1px solid;">' +
+                 '        <header class="major">' +
+                 '          <h2>' + title + '</h2>' +
+                 '          <div class="byline" style="width:100%; height:200px" id="artMap' + i + '"></div>' +
+                 '        </header>' +
+                 '        <p>' + content + '</p>' +
+                 '        <footer style="overflow:hidden; height:70px">' +
+                 '          <div style="float:left; font-size:35px" id="artRanking' + i + '"></div>' +
+                 '          <div style="float:right" id="artButtons' + i + '">' +
+                 '            <a href="#" class="button medium" id="artPlus' + i + '"><span class="fa fa-plus-circle"></span></a>' +
+                 '            <a href="#" class="button alt medium" id="artMinus' + i + '"><span class="fa fa-minus-circle"></span></a>' +
+                 '          </div>' +
+                 '        </footer>' +
+                 '      </section>' +
+                 '    </div>';
+          return html;
+        }
+
+        function setRanking(obj, value){
+          obj = document.getElementById(obj);
+
+          if(value == 0) obj.style.color = "#000";
+          else if(value < 0) obj.style.color = "#f00";
+          else obj.style.color = "rgb(54, 131, 54)";
+
+          if(value > 0) value = '+' + value;
+
+          obj.innerHTML = value;
         }
 
         function loadData(){
           $("#mainContent").html("");
+          $.ajax({
+            url: 'controller.php',
+            type: 'post',
+            data: {
+              do: 'getList'
+            },
+            dataType: 'json',
+            success: function(data){
+              for(i=1; i<=data.length; i++){
+                $("#mainContent").append(structData(data[i-1].PRT_TITULO, data[i-1].PRT_DESCRIPCION, i));
+                
+                $("#artPlus" + i).data("uid", data[i-1].PRT_UID);
+                $("#artMinus" + i).data("uid", data[i-1].PRT_UID);
+                $("#artPlus" + i).data("i", i);
+                $("#artMinus" + i).data("i", i);
 
+                $("#artPlus" + i).click(function(){
+                  var id = $(this).data("uid");
+                  var i = $(this).data("i");
+                  $.ajax({
+                    url: 'controller.php',
+                    type: 'post',
+                    data: {
+                      do: 'saveVote',
+                      uid: id,
+                      action: 'plus'
+                    },
+                    success: function(data){
+                      $("#artButtons" + i).hide();
+                      setRanking("artRanking" + i, data);
+                      document.getElementById("artRanking" + i).style.float = 'none';
+                      document.getElementById("artRanking" + i).style.textAlign = 'center';
+                    }
+                  });
+                  return false;
+                });
+                $("#artMinus" + i).click(function(){
+                  var id = $(this).data("uid");
+                  var i = $(this).data("i");
+                  $.ajax({
+                    url: 'controller.php',
+                    type: 'post',
+                    data: {
+                      do: 'saveVote',
+                      uid: id,
+                      action: 'minus'
+                    },
+                    success: function(data){
+                      $("#artButtons" + i).hide();
+                      setRanking("artRanking" + i, data);
+                      document.getElementById("artRanking" + i).style.float = 'none';
+                      document.getElementById("artRanking" + i).style.textAlign = 'center';
+                    }
+                  });
+                  return false;
+                });
+
+                initialize("artMap" + i, data[i-1].PRT_MAP_DATA);
+                setRanking("artRanking" + i, data[i-1].PRT_RANKING);
+              }
+            }
+          });
         }
+
+        loadData();
 
       });
     </script>
@@ -214,7 +308,7 @@
                               <div class="row">
                                 <div class="4u right"><label for="frmNombre">Nombre:</label></div>
                                 <div class="8u"><input name="frmNombre" id="frmNombre" /></div>
-                                <div class="4u right"><label for="frmEmail">Correo Electr&oacute;nico (no ser&aacute; publicado:</label></div>
+                                <div class="4u right"><label for="frmEmail">Correo Electr&oacute;nico:</label></div>
                                 <div class="8u"><input name="frmEmail" id="frmEmail" /></div>
                                 <div class="4u right"><label for="frmTema">Tema:</label></div>
                                 <div class="8u"><input name="frmTema" id="frmTema" /></div>
@@ -242,7 +336,11 @@
         </div>
 
         <div class="main-wrapper-style2">
-          <div class="inner" id="mainContent"></div>
+          <div class="inner">
+            <section class="container box-feature2">
+              <div class="row" id="mainContent"></div>
+            </section>
+          </div>
         </div>
       </div>
 
